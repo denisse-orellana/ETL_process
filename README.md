@@ -5,6 +5,14 @@ Project that performs ETL process with extraction, cleaning, transformation, and
 * __Time of analysis v1:__ November 7, 2023.
 * __Tools v1:__ .CSV, Python, SQL, BigQuery GCP.
 
+## Table of contents
+
+- [ETL Process](#etl-process)
+  - [Background](#background)
+  - [Getting started](#getting-started)
+  - [Workflow description](#workflow-description)
+  - [BigQuery: Load data with GCP SDK](#bigquery-load-data-with-gcp-sdk)
+
 ## Background
 
 This project extracts the top headlines of the [News API](https://newsapi.org/).
@@ -109,3 +117,50 @@ SELECT
 
 ## BigQuery: Load data with GCP SDK
 
+First, starts GCP SDK:
+
+```console
+➜ google-cloud-sdk gcloud init
+```
+
+Select or create a project:
+
+```
+➜  google-cloud-sdk gcloud config set project `PROJECT ID`
+```
+
+Create a database:
+
+```
+➜  google-cloud-sdk 
+  bq --location=US mk -d \
+  --default_table_expiration 3600 \
+  --description "Dataset for ETL Process." \
+  ETL_process
+
+Dataset 'ProjectName:ETL_process' successfully created.
+```
+
+Create a table:
+
+```
+➜  google-cloud-sdk 
+bq load --source_format=CSV --skip_leading_rows=1 ETL_process.top_headlines 
+/Users/denisse/ETL_process/top_headlines_after_sql.csv 
+date:datetime,source:string,author:string,title:string,content:string,url:string,image:string           
+
+Upload complete.
+.. (1s) Current status: DONE   
+```
+
+Check the table from the terminal:
+
+```console
+➜  google-cloud-sdk bq show ETL_process.top_headlines
+```
+
+<p align="left"><img width="100%" src="./images/gcp-sdk.png"></p>
+
+Watch the schema and the preview from BigQuery: [ETL_process.top_headlines](https://console.cloud.google.com/bigquery?hl=es-419&project=int-education-project&ws=!1m5!1m4!4m3!1sint-education-project!2sETL_process!3stop_headlines).
+
+<p align="left"><img width="100%" src="./images/gcp.png"></p>
