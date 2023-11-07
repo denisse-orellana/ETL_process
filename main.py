@@ -26,8 +26,7 @@ df = pd.json_normalize(responseData, 'articles')
 # print(df.head(5))
 
 ### 1. Inspecting data
-df.head(15)
-df.shape # (89010, 61)
+df.head(5)
 df.dtypes
 # df.info()
 df.describe()
