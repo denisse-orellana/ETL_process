@@ -29,6 +29,21 @@ pip3 install "fugue[sql]"
 python3 -m pip install python-dotenv
 ```
 
+Create an ```.env``` file:
+
+```console
+touch .env
+```
+
+Add the API Key to the ```.env``` file:
+
+```py
+# .env
+
+NEWS_API_KEY=APIKEYFROMNEWSAPI
+```
+
+
 Run the code to start the process: 
 
 ```console
@@ -93,3 +108,4 @@ SELECT
 ```
 
 ## BigQuery: Load data with GCP SDK
+
